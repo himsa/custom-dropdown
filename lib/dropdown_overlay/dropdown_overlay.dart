@@ -25,6 +25,8 @@ class _DropdownOverlay extends StatefulWidget {
   final _SearchType? searchType;
   final Future<List<String>> Function(String)? futureRequest;
   final Duration? futureRequestDelay;
+  final BorderRadius? borderRadius;
+  final Color? fillColor;
 
   final _ListItemBuilder? listItemBuilder;
 
@@ -45,6 +47,8 @@ class _DropdownOverlay extends StatefulWidget {
     this.futureRequest,
     this.futureRequestDelay,
     this.listItemBuilder,
+    this.borderRadius,
+    this.fillColor,
   }) : super(key: key);
 
   @override
@@ -112,7 +116,7 @@ class _DropdownOverlayState extends State<_DropdownOverlay> {
     final onSearch = widget.searchType != null;
 
     // border radius
-    final borderRadius = BorderRadius.circular(12);
+    final borderRadius = widget.borderRadius ?? BorderRadius.circular(12);
 
     // overlay icon
     final overlayIcon = Icon(
@@ -177,8 +181,12 @@ class _DropdownOverlayState extends State<_DropdownOverlay> {
               padding: _overlayOuterPadding,
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: widget.fillColor ?? Colors.white,
                   borderRadius: borderRadius,
+                  border: Border.all(
+                    width: 1.5,
+                    color: const Color(0xFFD9D9D9),
+                  ),
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 24.0,
